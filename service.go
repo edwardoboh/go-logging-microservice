@@ -6,10 +6,6 @@ import (
 	"net/http"
 )
 
-type Service interface {
-	GetCatFact(context.Context) (*CatFact, error)
-}
-
 type CatFactService struct {
 	url string
 }
@@ -27,7 +23,6 @@ func (s *CatFactService) GetCatFact(ctx context.Context) (*CatFact, error) {
 	defer response.Body.Close()
 
 	fact := &CatFact{}
-
 	if err := json.NewDecoder(response.Body).Decode(fact); err != nil {
 		return nil, err
 	}
